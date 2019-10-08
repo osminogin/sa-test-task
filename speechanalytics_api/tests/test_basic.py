@@ -30,7 +30,7 @@ async def test_unauthorized_access(aiohttp_client):
     assert response.status == web.HTTPUnauthorized.status_code
 
 
-async def test_not_found_method(aiohttp_client):
+async def test_not_found_method(aiohttp_client, auth):
     client = await aiohttp_client(build_app)
-    response = await client.get('/abcde123/')
+    response = await client.get('/abcde123/', headers=auth)
     assert response.status == web.HTTPNotFound.status_code

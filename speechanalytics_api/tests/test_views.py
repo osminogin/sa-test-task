@@ -24,8 +24,8 @@ async def test_healthcheck_success(aiohttp_client):
     assert not sleep, data['uptime'] > 0
 
 
-async def test_get_calls(aiohttp_client):
+async def test_get_calls(aiohttp_client, auth):
     """ Example call list. """
     client = await aiohttp_client(build_app)
-    response = await client.get('/calls/')
+    response = await client.get('/calls/', headers=auth)
     assert response.status == web.HTTPOk.status_code
