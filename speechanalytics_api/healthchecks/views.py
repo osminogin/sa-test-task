@@ -8,7 +8,7 @@ class PingCheckView(web.View):
     """
     @staticmethod
     async def get():
-        return web.Response(body=b'pong')
+        return web.Response(text='pong')
 
 
 class HealthCheckView(web.View):

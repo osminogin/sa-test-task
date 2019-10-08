@@ -28,8 +28,8 @@ async def test_healthcheck_success(aiohttp_client):
 
 async def test_get_calls(aiohttp_client, auth):
     """ Example call list. """
-    client = await aiohttp_client(build_app, headers=auth)
-    response = await client.get('/calls/')
+    client = await aiohttp_client(build_app)
+    response = await client.get('/calls/', headers=auth)
     assert response.status == web.HTTPOk.status_code
     assert response.content_type == 'application/json'
 
