@@ -10,6 +10,7 @@ async def test_ping_success(aiohttp_client):
     response = await client.get('/ping/')
     assert response.status == web.HTTPOk.status_code
     content = await response.text()
+    assert response.content_type == 'text/plain'
     assert content == 'pong'
 
 
@@ -18,6 +19,7 @@ async def test_healthcheck_success(aiohttp_client):
     client = await aiohttp_client(build_app)
     response = await client.get('/health/')
     assert response.status == web.HTTPOk.status_code
+    assert response.content_type == 'application/json'
     data = await response.json()
     sleep = await asyncio.sleep(1)
     assert 'uptime' in data
@@ -26,6 +28,7 @@ async def test_healthcheck_success(aiohttp_client):
 
 async def test_get_calls(aiohttp_client, auth):
     """ Example call list. """
-    client = await aiohttp_client(build_app)
-    response = await client.get('/calls/', headers=auth)
+    client = await aiohttp_client(build_app, headers=auth)
+    response = await client.get('/calls/')
     assert response.status == web.HTTPOk.status_code
+    assert response.content_type == 'application/json'
