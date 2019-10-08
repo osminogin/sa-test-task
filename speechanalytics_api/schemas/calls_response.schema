@@ -1,0 +1,51 @@
+{
+  "$id": "https://example.com/arrays.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "calls": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/call" }
+    }
+  },
+  "definitions": {
+    "call": {
+      "type": "object",
+      "required": [
+        "id", "type", "date", "duration_answer", "status",
+        "phone_number_client", "phone_number_operator"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ID of call in UUID format."
+        },
+        "type": {
+          "type": "string",
+          "enum": ["INCOMING", "OUTGOING", "LOCAL"],
+          "description": "Type of call."
+        },
+        "status": {
+          "type": "string",
+          "enum": ["ACCEPTED", "REJECTED"]
+        },
+        "date": { "type": "integer", "minimum": 0 },
+        "duration_answer": { "type": "integer", "minimum": 0 },
+        "phone_number_client": { "type": "string" },
+        "phone_number_operator": { "type": "string" },
+        "hang_up_initiator": {
+          "type": "string",
+          "enum": ["operator", "client"]
+        },
+        "transfers": {
+          "type": "string",
+          "enum": ["operator", "client"]
+        },
+        "transfers_count": { "type": "integer" },
+        "holds_count": { "type": "integer" },
+        "holds_duration": { "type":  "integer" },
+        "record_url": { "type": "string" }
+      }
+    }
+  }
+}

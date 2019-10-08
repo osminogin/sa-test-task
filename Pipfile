@@ -1,0 +1,24 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[packages]
+aiohttp = ">=2.3.5"
+aiohttp-jwt = "*"
+aiofiles = "*"
+yadisk-async = "*"
+fastjsonschema = "*"
+uvloop = "*"
+gunicorn = "*"
+requests = "*"
+pytest = "*"
+pytest-asyncio = "*"
+
+[dev-packages]
+flake8 = "*"
+pylint = "*"
+isort = "*"
+
+[requires]
+python_version = "3.7"

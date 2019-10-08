@@ -1,0 +1,19 @@
+version: '3.7'
+
+services:
+
+  app:
+    build:
+      context: .
+    restart: always
+    ports:
+      - "8000:8000"
+    
+    environment:
+      - REDIS_URL=redis://redis
+      - PGHOST=postgres
+      - PGDATABASE=postgres
+
+volumes:
+  
+  
