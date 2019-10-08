@@ -32,3 +32,12 @@ async def test_get_calls(aiohttp_client, auth):
     response = await client.get('/calls/')
     assert response.status == web.HTTPOk.status_code
     assert response.content_type == 'application/json'
+
+
+async def test_get_operators(aiohttp_client, auth):
+    """ Test operators list. """
+    client = await aiohttp_client(build_app)
+    response = await client.get('/operators/', headers=auth)
+    data = await response.json()
+    assert response.status == web.HTTPOk.status_code
+    assert response.content_type == 'application/json'
