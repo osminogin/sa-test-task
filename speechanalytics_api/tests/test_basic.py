@@ -27,10 +27,10 @@ async def test_unauthorized_access(aiohttp_client):
     """ Unauthorized access to protected methods. """
     client = await aiohttp_client(build_app)
     response = await client.get('/calls/')
-    assert response.status == 401   # Unauthorized
+    assert response.status == web.HTTPUnauthorized.status_code
 
 
 async def test_not_found_method(aiohttp_client):
     client = await aiohttp_client(build_app)
     response = await client.get('/abcde123/')
-    assert response.status == 404   # Not Found
+    assert response.status == web.HTTPNotFound.status_code
