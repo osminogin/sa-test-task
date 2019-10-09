@@ -38,7 +38,10 @@ build:
 		--build-arg VERSION=$(VERSION)\
 		.
 
+token:
+	# XXX:
+
 deps:
 	@docker-compose up postgres redis	# pgadmin4
 
-.PHONY: default daemon tests build analysis dev
+.PHONY: default daemon tests build analysis dev token

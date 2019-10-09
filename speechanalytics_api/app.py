@@ -4,6 +4,8 @@ from aiohttp import web
 
 from .utils import get_middlewares, get_version
 from .calls.views import CallsView
+from .recordings.views import RecordingsView
+from .operators.views import OperatorsView
 from .healthchecks.views import PingCheckView, HealthCheckView
 
 
@@ -16,9 +18,11 @@ def build_app(argv=None) -> web.Application:
 
 
 def register_routes(app) -> None:
-    app.router.add_route('*', '/calls/', CallsView)
-    app.router.add_route('*', '/ping/', PingCheckView)
-    app.router.add_route('*', '/health/', HealthCheckView)
+    app.router.add_get('/calls/', CallsView, allow_head=False)
+    app.router.add_route('*', '/recording/', RecordingsView)
+    app.router.add_get('/operators/', OperatorsView, allow_head=False)
+    app.router.add_get('/ping/', PingCheckView)
+    app.router.add_get('/health/', HealthCheckView)
 
 
 async def startup_handler(app) -> None:

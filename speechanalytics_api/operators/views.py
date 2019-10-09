@@ -5,8 +5,7 @@ class OperatorsView(web.View):
     """
     Operators view.
     """
-    @staticmethod
-    async def get():
+    async def get(self):
         data = {
             'operators': []
         }

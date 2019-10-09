@@ -2,7 +2,7 @@
 
 Test task.
 
-Initially generated from [cookiecutter aiohttp uvloop]() project template.
+Initially generated from [cookiecutter aiohttp uvloop](https://github.com/osminogin/cookiecutter-aiohttp-uvloop) project template.
 
 ## Features
 
@@ -17,8 +17,12 @@ Initially generated from [cookiecutter aiohttp uvloop]() project template.
 make daemon
 ```
 
-Or alternatively:
+Or alternatively run devserver:
 
 ```bash
-make daemon
+make dev
 ```
+
+## License
+
+See [LICENSE.md](https://github.com/osminogin/cookiecutter-aiohttp-helm/blob/master/LICENSE.md).
