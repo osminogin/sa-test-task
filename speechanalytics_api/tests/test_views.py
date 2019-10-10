@@ -6,7 +6,7 @@ from aiohttp import web
 from speechanalytics_api import build_app
 
 
-async def test_ping_success(aiohttp_client):
+async def test_ping_success(aiohttp_client) -> None:
     """ Проверка тестового метода ping-pong. """
     client = await aiohttp_client(build_app)
     response = await client.get('/ping/')
@@ -28,7 +28,7 @@ async def test_healthcheck_success(aiohttp_client):
     assert not sleep, data['uptime'] > 0
 
 
-async def test_get_calls(aiohttp_client, auth):
+async def test_get_calls(aiohttp_client, auth) -> None:
     """ Example call list. """
     client = await aiohttp_client(build_app)
     response = await client.get('/calls/', headers=auth)
@@ -36,7 +36,7 @@ async def test_get_calls(aiohttp_client, auth):
     assert response.content_type == 'application/json'
 
 
-async def test_get_calls_filters(aiohttp_client, auth):
+async def test_get_calls_filters(aiohttp_client, auth) -> None:
     """ Example call list witj date range. """
     client = await aiohttp_client(build_app)
     query_params = {
@@ -49,7 +49,7 @@ async def test_get_calls_filters(aiohttp_client, auth):
     assert False    # TODO
 
 
-async def test_get_operators(aiohttp_client, auth):
+async def test_get_operators(aiohttp_client, auth) -> None:
     """ Test operators list. """
     client = await aiohttp_client(build_app)
     response = await client.get('/operators/', headers=auth)
@@ -58,7 +58,7 @@ async def test_get_operators(aiohttp_client, auth):
     assert response.content_type == 'application/json'
 
 
-async def test_get_operators_filters(aiohttp_client, auth):
+async def test_get_operators_filters(aiohttp_client, auth) -> None:
     """ Test operators list with filters. """
     client = await aiohttp_client(build_app)
     query_params = {'date_till': datetime.utcnow()}

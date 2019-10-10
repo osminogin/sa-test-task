@@ -7,9 +7,10 @@ Initially generated from [cookiecutter aiohttp uvloop](https://github.com/osmino
 ## Features
 
 - Python 3.6, 3.7 support.
-- Gunicorn with UVloop event loop built on top of libuv ([more info](http://magic.io/blog/uvloop-blazing-fast-python-networking/).
+- Gunicorn with UVloop event loop ([read why](http://magic.io/blog/uvloop-blazing-fast-python-networking/)).
 - Pipenv for Python dependency management.
 - JSON schemas for input validation.
+- Heroku deployment support.
 
 ## Getting started
 
