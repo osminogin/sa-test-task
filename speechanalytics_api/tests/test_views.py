@@ -41,7 +41,7 @@ async def test_get_calls_filters(aiohttp_client, auth) -> None:
     client = await aiohttp_client(build_app)
     query_params = {
         'date_from': 1,
-        'date_till': datetime.utcnow().timestamp()
+        'date_till': int(datetime.utcnow().timestamp())
     }
     response = await client.get('/calls/', params=query_params, headers=auth)
     data = await response.json()
@@ -61,7 +61,7 @@ async def test_get_operators(aiohttp_client, auth) -> None:
 async def test_get_operators_filters(aiohttp_client, auth) -> None:
     """ Test operators list with filters. """
     client = await aiohttp_client(build_app)
-    query_params = {'date_till': datetime.utcnow()}
+    query_params = {'date_till': int(datetime.utcnow().timestamp())}
     response = await client.get(
         '/operators/',
         params=query_params,
