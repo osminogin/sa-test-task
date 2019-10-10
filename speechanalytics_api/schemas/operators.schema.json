@@ -1,0 +1,27 @@
+{
+  "$id": "https://example.com/operators.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "operators": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/operator" }
+    }
+  },
+  "definitions": {
+    "operator": {
+      "type": "object",
+      "required": [ "phone_number", "name" ],
+      "properties": {
+        "phone_number": {
+          "type": "string",
+          "description": "Additional operators number."
+        },
+        "name": {
+          "type": "string",
+          "description": "Operators name."
+        }
+      }
+    }
+  }
+}
