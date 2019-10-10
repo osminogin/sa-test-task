@@ -1,7 +1,9 @@
 from datetime import datetime
 
+import yadisk_async
 from aiohttp import web
 
+from .settings import YADISK_TOKEN, YADISK_METADATA
 from .utils import get_middlewares, get_version
 from .calls.views import CallsView
 from .recordings.views import RecordingsView
@@ -26,9 +28,18 @@ def register_routes(app) -> None:
 
 
 async def startup_handler(app) -> None:
+    """ Initialize application state. """
     app.started = datetime.utcnow()
     app.version = await get_version()
+    # Yandex.Disk connection init and checks
+    app.yadisk = yadisk_async.YaDisk(token=YADISK_TOKEN)
+    try:
+        assert await app.yadisk.check_token()
+        assert await app.yadisk.exists(YADISK_METADATA)
+    except AssertionError:
+        raise RuntimeError
 
 
 async def cleanup_handler(app) -> None:
-    pass
+    """ Always remember to close all the connections. """
+    await app.yadisk.close()

@@ -23,8 +23,9 @@ async def test_healthcheck_success(aiohttp_client):
     assert response.status == web.HTTPOk.status_code
     assert response.content_type == 'application/json'
     data = await response.json()
-    sleep = await asyncio.sleep(1)
+    sleep = await asyncio.sleep(1)  # Timeout 1 second
     assert 'uptime' in data
+    assert 'yadisk' in data
     assert not sleep, data['uptime'] > 0
 
 
@@ -44,7 +45,9 @@ async def test_get_calls_filters(aiohttp_client, auth) -> None:
         'date_till': int(datetime.utcnow().timestamp())
     }
     response = await client.get('/calls/', params=query_params, headers=auth)
+    text = await response.text()
     data = await response.json()
+    assert 'calls' in data
     assert not data['calls']
     assert False    # TODO
 
@@ -56,6 +59,8 @@ async def test_get_operators(aiohttp_client, auth) -> None:
     data = await response.json()
     assert response.status == web.HTTPOk.status_code
     assert response.content_type == 'application/json'
+    assert 'operators' in data
+    assert False    # TODO
 
 
 async def test_get_operators_filters(aiohttp_client, auth) -> None:
