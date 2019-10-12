@@ -4,7 +4,7 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [packages]
-aiohttp = ">=2.3.5"
+aiohttp = {extras = ["speedups"], version = ">=2.3.5"}
 aiohttp-jwt = "*"
 aiofiles = "*"
 yadisk-async = "*"
@@ -13,7 +13,6 @@ uvloop = "*"
 gunicorn = "*"
 requests = "*"
 pytest = "*"
-pytest-asyncio = "*"
 
 [dev-packages]
 flake8 = "*"
