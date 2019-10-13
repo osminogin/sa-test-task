@@ -12,7 +12,7 @@ ENV GUNICORN_BACKLOG=4096
 
 LABEL maintainer="osintsev@gmail.com" \
     org.label-schema.build-date="$BUILD_DATE" \
-    org.label-schema.docker.cmd="docker run --rm --publish $PORT:8000 --name speechanalytics speechanalytics_api" \
+    org.label-schema.docker.cmd="docker run --rm --publish $PORT:8081 --name speechanalytics speechanalytics_api" \
     org.label-schema.name="Test task for SpeechAnalytics" \
     org.label-schema.license="MIT" \
     org.label-schema.usage="https://github.com/osminogin/cookiecutter-aiohttp-uvloop#usage" \

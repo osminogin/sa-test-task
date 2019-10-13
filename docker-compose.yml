@@ -7,13 +7,14 @@ services:
       context: .
     restart: always
     ports:
-      - "8000:8000"
-    
-    environment:
-      - REDIS_URL=redis://redis
-      - PGHOST=postgres
-      - PGDATABASE=postgres
+      - "8000:8081"
 
-volumes:
-  
-  
+#  postgres:
+#    image: postgres:11-alpine
+#    hostname: postgres
+#    volumes:
+#      - psql-data:/var/lib/postgresql/data
+#
+#volumes:
+#  psql-data:
+

@@ -1,8 +1,8 @@
 import os
 
 SECRET_KEY = os.getenv('SECRET_KEY', 'aeghu0an0Ben9zai5Etae1eid2xoh,Ge')
-YADISK_TOKEN = os.getenv('YADISK_TOKEN')
-YADISK_METADATA = os.getenv('YADISK_METADATA',
+YADISK_TOKEN = os.getenv('YADISK_TOKEN')    # Required
+YADISK_CALLDATA = os.getenv('YADISK_CALLDATA',
                             '/speechanalytics-connect/meta/calls-info.csv')
 WHITELIST_IP = (
     '127.0.0.1',

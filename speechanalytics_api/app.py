@@ -3,7 +3,7 @@ from datetime import datetime
 import yadisk_async
 from aiohttp import web
 
-from .settings import YADISK_TOKEN, YADISK_METADATA
+from .settings import YADISK_TOKEN, YADISK_CALLDATA
 from .utils import get_middlewares, get_version
 from .calls.views import CallsView
 from .recordings.views import RecordingsView
@@ -35,7 +35,7 @@ async def startup_handler(app) -> None:
     app.yadisk = yadisk_async.YaDisk(token=YADISK_TOKEN)
     try:
         assert await app.yadisk.check_token()
-        assert await app.yadisk.exists(YADISK_METADATA)
+        assert await app.yadisk.exists(YADISK_CALLDATA)
     except AssertionError:
         raise RuntimeError
 
