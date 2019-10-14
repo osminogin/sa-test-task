@@ -39,7 +39,7 @@ build:
 		.
 
 token:
-	echo "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.19X7kKD-m0ImEdCIeDzitU10IQLQIhTkGA55FOaLUhs"
+	@echo "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.19X7kKD-m0ImEdCIeDzitU10IQLQIhTkGA55FOaLUhs"
 
 deps:
 	@docker-compose up postgres redis	# pgadmin4
