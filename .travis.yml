@@ -1,0 +1,20 @@
+language: python
+
+python:
+  - '3.7'
+
+#matrix:
+#  include:
+#    - python: 3.7
+#      dist: xenial
+#      sudo: true
+
+env:
+  - DEBUG=False
+
+install:
+  - 'pip install --upgrade pipenv'
+  - 'pipenv sync'
+
+script:
+  - 'pipenv run -x pytest'
