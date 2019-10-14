@@ -4,7 +4,7 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [packages]
-aiohttp = {extras = ["speedups"],version = ">=2.3.5"}
+aiohttp = {extras = ["speedups"], version = ">=2.3.5"}
 aiohttp-jwt = "*"
 aiofiles = "*"
 pandas = "*"
