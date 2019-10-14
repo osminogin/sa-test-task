@@ -22,8 +22,9 @@ class RecordingsView(web.View):
         except ValueError:
             return web.Response(status=web.HTTPBadRequest.status_code)
 
-        # TODO: Запрос данных записей
-        df = await get_call_data()
+        df = await get_call_data(self.request.app, columns=[])
+
+        # TODO
 
         return web.Response(data)
 

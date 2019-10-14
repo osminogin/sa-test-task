@@ -7,7 +7,6 @@ install:
   - pip install --upgrade pipenv
   - pipenv install
 
-# safelist
 branches:
   only:
     - master
@@ -17,4 +16,4 @@ env:
   - DEBUG=False
 
 script:
-  - 'pipenv run pytest'
+  - pipenv run pytest --flakes
