@@ -1,21 +1,17 @@
 language: python
 
-matrix:
-  include:
-    - python: 3.6
-    - python: 3.7
-  dist: xenial
-  sudo: true
+python:
+  - 3.7
 
 install:
   - pip install --upgrade pipenv pytest
   - pipenv install
 
-#matrix:
-#  include:
-#    - python: 3.7
-#      dist: xenial
-#      sudo: true
+# safelist
+branches:
+  only:
+    - master
+    - stable
 
 env:
   - DEBUG=False
