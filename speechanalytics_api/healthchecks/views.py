@@ -19,8 +19,15 @@ class HealthCheckView(web.View):
         """ System health data. """
         data = {
             'uptime': await self._get_uptime(),
-            'yadisk': await self._get_yadisk_info()
         }
+        if getattr(self.request.app, 'yadisk'):
+            yadisk_info = await self._get_yadisk_info()
+            data['yadisk'] = {
+                'user': yadisk_info.user.display_name,
+                'valid_token': await self.request.app.yadisk.check_token(),
+                'total_space': yadisk_info.total_space,
+                'used_space': yadisk_info.used_space,
+            }
         return web.json_response(data)
 
     async def _get_uptime(self) -> int:

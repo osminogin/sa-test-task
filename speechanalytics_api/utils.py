@@ -45,12 +45,33 @@ async def fetch(session, url, destination=None) -> None:
             assert await f.write(await response.content.read())
 
 
-async def get_call_data(app) -> pd.DataFrame:
+async def get_call_data(app, columns: list = None) -> pd.DataFrame:
     """ Get latest call metadata. """
     meta = await app.yadisk.get_meta(YADISK_CALLDATA)
     filename = meta['name']
     public_url = meta['file']
     data_frame = None
+
+    # TODO: Сделать чтение и парсинг дата-файла асинхронным и/или
+    #   засунуть в отдельную нитку.
+    def get_data_frame(columns: list = None) -> pd.DataFrame:
+        """ Parse CSV with Pandas. """
+        df = pd.read_csv(
+            filename, delimiter=';', parse_dates=['date'],
+            # index_col=['call_id', 'date'],
+            dtype={'duration_answer': 'int32'},
+            # XXX: Неработает - почему-то все равно тип объект в полях
+            converters={
+                'call_id': str,
+                'filename': str,
+                'status': str,
+                'type': str,
+                'phone_number_operator': str,
+                'name_operator': str,
+                'phone_number_client': str,
+            }
+        )
+        return df
 
     try:
         # If data file already exists - checks sha256 sums
@@ -58,22 +79,15 @@ async def get_call_data(app) -> pd.DataFrame:
             # XXX: Blocking CPU-bound code - вынести в отдельную нитку
             local_sha256 = hashlib.sha256(await f.read()).hexdigest()
             assert local_sha256 == meta['sha256']
-        data_frame = pd.read_csv(filename,
-                                 delimiter=';',
-                                 parse_dates=['date'])
-        return data_frame
+            data_frame = get_data_frame(columns)
+            return data_frame
 
     # Download CSV file only if needed
     except (FileNotFoundError, AssertionError):
         async with ClientSession() as session:
             await fetch(session, public_url, filename)
 
-    # TODO: Сделать чтение и парсинг дата-файла асинхронным и/или
-    #   засунуть в отдельную нитку.
-    if not data_frame:
-        data_frame = pd.read_csv(filename, delimiter=';', parse_dates=['date'])
-    # data_frame.sort('date')
-    return data_frame
+    return get_data_frame(columns) if not data_frame else data_frame
 
 
 async def get_json_url(session, url, headers=None):

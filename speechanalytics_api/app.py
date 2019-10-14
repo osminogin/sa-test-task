@@ -48,7 +48,7 @@ async def startup_handler(app) -> None:
     app.schemas = SpeechAnalyticsSchemas(app).schemas
     app.validator = dict()
     async for schema in app.schemas:
-        app.validator[schema[0]] = fastjsonschema.compile(schema[1])
+        app.validator[schema[0].lower()] = fastjsonschema.compile(schema[1])
 
 
 async def cleanup_handler(app) -> None:

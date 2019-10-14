@@ -13,8 +13,8 @@ services:
 #    image: postgres:11-alpine
 #    hostname: postgres
 #    volumes:
-#      - psql-data:/var/lib/postgresql/data
+#      - postgres-data:/var/lib/postgresql/data
 #
 #volumes:
-#  psql-data:
+#  postgres-data:
 

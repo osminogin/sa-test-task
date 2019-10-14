@@ -12,14 +12,10 @@
     "call": {
       "type": "object",
       "required": [
-        "id", "type", "date", "duration_answer", "status",
+        "type", "date", "duration_answer", "status",
         "phone_number_client", "phone_number_operator"
       ],
       "properties": {
-        "id": {
-          "type": "string",
-          "description": "ID of call in UUID format."
-        },
         "type": {
           "type": "string",
           "enum": ["INCOMING", "OUTGOING", "LOCAL"],
