@@ -4,7 +4,7 @@ python:
   - 3.7
 
 install:
-  - pip install --upgrade pipenv pytest
+  - pip install --upgrade pipenv
   - pipenv install
 
 # safelist
