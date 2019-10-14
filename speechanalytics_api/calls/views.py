@@ -13,17 +13,18 @@ class CallsView(web.View):
         data = {
             'calls': []
         }
-        # Get timestamps range to search
+        # Get timestamps range to search (with by default settings)
         try:
             date_from = int(self.request.query.get('date_from') or 1)
             date_till = int(self.request.query.get('date_till') or
                             datetime.now().timestamp())
         except (TypeError, ValueError):
             return web.Response(status=web.HTTPBadRequest.status_code)
+        # Unix timestamp to datetime convert
         if date_from:
-            date_from = datetime.utcfromtimestamp(date_from)
+            date_from = datetime.fromtimestamp(date_from)
         if date_till:
-            date_till = datetime.utcfromtimestamp(date_till)
+            date_till = datetime.fromtimestamp(date_till)
 
         # Get DataFrame
         df = await get_call_data(self.request.app)

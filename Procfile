@@ -1,1 +1,1 @@
-api: make daemon
+web: make daemon
