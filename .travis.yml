@@ -17,4 +17,4 @@ install:
   - 'pipenv sync'
 
 script:
-  - 'pipenv run -x pytest'
+  - 'pipenv run pytest'
