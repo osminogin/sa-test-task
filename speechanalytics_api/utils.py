@@ -1,6 +1,7 @@
 import os
 import hashlib
 from urllib.parse import urlparse
+from concurrent.futures import ThreadPoolExecutor
 
 import aiofiles
 import pandas as pd
@@ -52,11 +53,9 @@ async def get_call_data(app, columns: list = None) -> pd.DataFrame:
     public_url = meta['file']
     data_frame = None
 
-    # TODO: Сделать чтение и парсинг дата-файла асинхронным и/или
-    #   засунуть в отдельную нитку.
-    def get_data_frame(columns: list = None) -> pd.DataFrame:
+    def get_data_frame(cols: list = None) -> pd.DataFrame:
         """ Parse CSV with Pandas. """
-        df = pd.read_csv(
+        return pd.read_csv(
             filename, delimiter=';', parse_dates=['date'],
             # index_col=['call_id', 'date'],
             dtype={'duration_answer': 'int32'},
@@ -71,16 +70,27 @@ async def get_call_data(app, columns: list = None) -> pd.DataFrame:
                 'phone_number_client': str,
             }
         )
-        return df
+
+    def get_sha256_sum(file_name: str) -> str:
+        """ Ckecksum of file object with sha256 hash function. """
+        # TODO: Хорошо бы сделать буферизованное чтение и обновление
+        #   блоков хеш-функции.
+        with open(file_name, 'rb') as file:
+            return hashlib.sha256(file.read()).hexdigest()
 
     try:
-        # If data file already exists - checks sha256 sums
-        async with aiofiles.open(filename, 'rb') as f:
-            # XXX: Blocking CPU-bound code - вынести в отдельную нитку
-            local_sha256 = hashlib.sha256(await f.read()).hexdigest()
-            assert local_sha256 == meta['sha256']
-            data_frame = get_data_frame(columns)
-            return data_frame
+        # Blocking CPU-bound code runs async (another thread)
+        with ThreadPoolExecutor() as pool:
+            # If data file already exists - checks sha256 sums
+            result = await app.loop.run_in_executor(pool,
+                                                    get_sha256_sum, filename)
+            assert result == meta['sha256']
+
+        # I/O bound function also non blocks main event loop
+        with ThreadPoolExecutor() as pool:
+            df = await app.loop.run_in_executor(pool,
+                                                get_data_frame, columns)
+            return df
 
     # Download CSV file only if needed
     except (FileNotFoundError, AssertionError):
@@ -93,6 +103,6 @@ async def get_call_data(app, columns: list = None) -> pd.DataFrame:
 async def get_json_url(session, url, headers=None):
     """ Fetch URL and return native object from JSON. """
     async with session.get(url, headers=headers) as response:
-        # XXX: Проверить Content-Type ответа и при необходимости выбросить исключение
+        # Check valid `Content-Type` for JSON response
         assert response.content_type == 'application/json'
         return await response.json()
