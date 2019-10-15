@@ -52,6 +52,11 @@ async def test_get_calls_filters(aiohttp_client, auth) -> None:
     data = client.app.validator['calls'](await response.json())
     assert data, 'calls' in data
     assert len(data['calls']) > 1
+    entry = data['calls'].pop()
+    assert isinstance(entry['date'], int)
+    assert isinstance(entry['phone_number_client'], str)
+    assert isinstance(entry['phone_number_operator'], str)
+    assert isinstance(entry['duration_answer'], int)
 
     # Example of range filter (only one call choosed)
     query_params = {
