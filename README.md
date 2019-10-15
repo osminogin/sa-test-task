@@ -6,6 +6,8 @@ Test task.
 
 Initially generated from [cookiecutter aiohttp uvloop](https://github.com/osminogin/cookiecutter-aiohttp-uvloop) project template.
 
+Publicly available: [](https://sa-test-task.herokuapp.com/)
+
 ## Features
 
 - Python 3.6, 3.7 support.
@@ -16,8 +18,17 @@ Initially generated from [cookiecutter aiohttp uvloop](https://github.com/osmino
 - JSON schemas for input validation.
 - JWT tokens used for auth.
 - Heroku deployment support.
+- Travis CI autobuilds.
 
 ## Getting started
+
+Firstly set required environment variable:
+
+```bash
+export YADISK_TOKEN=...
+```
+
+Run production ready gunicorn server with uvloop:
 
 ```bash
 make daemon
