@@ -19,9 +19,10 @@ class HealthCheckView(web.View):
         """ System health data. """
         data = {
             'uptime': await self._get_uptime(),
-            # 'client_ip': self.request.remote,
-            'remote_client': self.request.transport.get_extra_info('peername'),
         }
+        client_ip = self.request.headers.get('X-Forwarded-For')
+        if client_ip:
+            data['client_ip'] = client_ip
         if getattr(self.request.app, 'yadisk'):
             yadisk_info = await self._get_yadisk_info()
             data['yadisk'] = {

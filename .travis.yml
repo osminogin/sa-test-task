@@ -3,6 +3,14 @@ language: python
 python:
   - 3.7
 
+services:
+  - docker
+
+env:
+  global:
+    - secure: "jjzbe1r5tSg5abgC43fP2zk/gHdm+oZoCqP+PdpaEcMH6EAJqRkoA2e7+bc3qtGzaFGKSO0BBfoco2/KdmQmZ5FTSoHb+cKbgmlcLIibYSqWBiC6TUPqh1vURWQez9trXoDuOUSUJDJfeicoaWf5re5eKMvqXhhMDGdcnwYjQh3k3o3+GjuGS8Q0APc/mIrDYXbJevevJBI/yYGiox3wzwWwNzqEPJePsMybKtPWjZU8Hj4tyT8Nn7YKYd0l9ATxTucGWCefu7XyqGnhaVO/6m9RGYEJQWdb/Gub0Zh0mEBpZYfct8HLS1705mAvMUhNoGvzn4L6wkhWAZVftpqj6m6BWavmxeYu/FEJVOwcfbDDuk7IHWNOsLw1rhcij4/sb2yVqgVguYHQUf8pS0xIsjePK325uhklvGYH5kPK71JzoNSMjo43LnvP1ZRzQZ23vMiKVT6TfOTskDDBzE3qGFwBIleZiQAhRVEoYosj58Te0NvVedgEm3tNQwBg63UywvOxIdLpdb5C5hMgrww/TnfXL5GMP4iXUzOothJz/AEbrpJvSDXjvEhatLEWOofjZyE48W/cRE5qQlFoZhBHFWA+HZoD/BwCzUek/sNdhMAtGMgNPTiKjzFxI3yi+eDwUSZwB/SiZTM12R+f7rSEF8Y7Uv47+An3YZh5zOLhKYk="
+    - DEBUG=False
+
 variables:
   WORKON_HOME: .pipenv/venvs
   PIP_CACHE_DIR: .pipenv/pipcache
@@ -21,8 +29,6 @@ branches:
     - master
     - stable
 
-env:
-  - DEBUG=False
-
 script:
+  - export PYTHONPATH=$PYTHONPATH:$(pwd)
   - pipenv run pytest --flakes
