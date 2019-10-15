@@ -44,7 +44,7 @@ async def startup_handler(app) -> None:
     except AssertionError:
         raise RuntimeError
 
-    # JSON Schema validatoa pre-compiles
+    # JSON Schema validators pre-compiles
     app.schemas = SpeechAnalyticsSchemas(app).schemas
     app.validator = dict()
     async for schema in app.schemas:

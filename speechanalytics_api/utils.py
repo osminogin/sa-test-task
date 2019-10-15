@@ -10,15 +10,15 @@ from aiohttp_jwt import JWTMiddleware
 
 from .middlewares.version import version_middleware
 from .middlewares.firewall import firewall_middleware
-from .settings import SECRET_KEY, YADISK_CALLDATA
+from .settings import SECRET_KEY, YADISK_CALLDATA, WHITELIST_URLS
 
 
 def get_middlewares() -> tuple:
     """ List of active middlewares. """
     middlewares = (
         version_middleware,
-        firewall_middleware,
-        JWTMiddleware(SECRET_KEY, whitelist=[r'/ping', r'/health']),
+        # firewall_middleware,
+        JWTMiddleware(SECRET_KEY, whitelist=WHITELIST_URLS),
     )
     return middlewares
 
@@ -92,7 +92,7 @@ async def get_call_data(app, columns: list = None) -> pd.DataFrame:
                                                 get_data_frame, columns)
             return df
 
-    # Download CSV file only if needed
+    # Download/redownload CSV file only if needed
     except (FileNotFoundError, AssertionError):
         async with ClientSession() as session:
             await fetch(session, public_url, filename)
@@ -100,7 +100,7 @@ async def get_call_data(app, columns: list = None) -> pd.DataFrame:
     return get_data_frame(columns) if not data_frame else data_frame
 
 
-async def get_json_url(session, url, headers=None):
+async def get_json_url(session, url, headers=None) -> (dict, list):
     """ Fetch URL and return native object from JSON. """
     async with session.get(url, headers=headers) as response:
         # Check valid `Content-Type` for JSON response
