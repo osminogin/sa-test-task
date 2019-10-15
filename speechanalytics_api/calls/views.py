@@ -1,15 +1,15 @@
 from datetime import datetime
 
-from aiohttp import web, ClientSession
+from aiohttp import web
 
-from ..utils import get_call_data, fetch
+from ..utils import get_call_data
 
 
 class CallsView(web.View):
     """
     Calls view.
     """
-    async def get(self):
+    async def get(self) -> web.Response:
         data = {
             'calls': []
         }
@@ -38,7 +38,7 @@ class CallsView(web.View):
         # Do DataFrame modifications and convert to dict
         select_columns = [
             'date', 'type', 'duration_answer', 'status',
-            'phone_number_client', 'phone_number_operator'
+            'phone_number_client', 'phone_number_operator',
         ]
         df['date'] = df['date'].map(lambda d: int(d.timestamp()))
         data['calls'] = df[select_columns] \

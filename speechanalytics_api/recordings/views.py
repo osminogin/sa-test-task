@@ -9,7 +9,7 @@ class RecordingsView(web.View):
     """
     Recordings view.
     """
-    async def get(self):
+    async def get(self) -> web.Response:
         data = {
             'calls': []
         }
@@ -28,5 +28,6 @@ class RecordingsView(web.View):
 
         return web.Response(data)
 
-    async def post(self):
+    async def post(self) -> web.Response:
+        # TODO
         pass

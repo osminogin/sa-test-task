@@ -7,7 +7,7 @@ class OperatorsView(web.View):
     """
     Operators view.
     """
-    async def get(self):
+    async def get(self) -> web.Response:
         data = {
             'operators': []
         }

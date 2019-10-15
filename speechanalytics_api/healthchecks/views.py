@@ -7,7 +7,7 @@ class PingCheckView(web.View):
     Ping-pong view.
     """
     @staticmethod
-    async def get():
+    async def get() -> web.Response:
         return web.Response(text='pong')
 
 
@@ -35,5 +35,5 @@ class HealthCheckView(web.View):
         uptime = datetime.utcnow() - self.request.app.started
         return int(uptime.total_seconds())
 
-    async def _get_yadisk_info(self):
+    async def _get_yadisk_info(self) -> dict:
         return await self.request.app.yadisk.get_disk_info()
