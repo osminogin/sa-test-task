@@ -9,7 +9,7 @@ from aiohttp import ClientSession
 from aiohttp_jwt import JWTMiddleware
 
 from .middlewares.version import version_middleware
-from .middlewares.firewall import firewall_middleware
+# from .middlewares.firewall import firewall_middleware
 from .middlewares.remove_slash import remove_slash_middleware
 from .settings import SECRET_KEY, YADISK_CALLDATA, WHITELIST_URLS
 

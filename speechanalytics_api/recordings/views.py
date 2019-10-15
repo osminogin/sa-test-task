@@ -25,6 +25,7 @@ class RecordingsView(web.View):
         df = await get_call_data(self.request.app, columns=[])
 
         # TODO
+        df
 
         return web.Response(data)
 
