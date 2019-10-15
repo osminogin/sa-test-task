@@ -18,7 +18,7 @@ def get_middlewares() -> tuple:
     middlewares = (
         version_middleware,
         # firewall_middleware,
-        JWTMiddleware(SECRET_KEY, whitelist=WHITELIST_URLS),
+        # JWTMiddleware(SECRET_KEY, whitelist=WHITELIST_URLS),
     )
     return middlewares
 

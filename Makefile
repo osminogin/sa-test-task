@@ -4,16 +4,19 @@ APP := speechanalytics_api
 VERSION ?= $(strip $(shell cat VERSION))
 COMMIT = $(strip $(shell git rev-parse --short HEAD))
 BUILD_DATE = $(strip $(shell date -u +"%Y-%m-%dT%H:%M:%SZ"))
+PUBLIC_URL = https://sa-test-task.herokuapp.com
+PORT ?= 8000
+WORKER_PROCESSES ?= 4
 TAG ?= latest
 IMAGE ?= $(APP):$(TAG)
 
 default: dev
 
 daemon:
-	@echo "Running async daemon on 0.0.0.0:8000 ..."
-	@pipenv run gunicorn speechanalytics_api:app --bind 0.0.0.0:8000 \
+	@echo "Running async daemon on 0.0.0.0:$(PORT) ..."
+	@pipenv run gunicorn speechanalytics_api:app --bind 0.0.0.0:$(PORT) \
 		--worker-class aiohttp.worker.GunicornUVLoopWebWorker \
-		--workers=2 \
+		--workers=$(WORKER_PROCESSES) \
 		--worker-tmp-dir /dev/shm \
 		--log-file=-
 
