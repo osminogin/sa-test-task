@@ -24,11 +24,11 @@ def build_app(argv=None) -> web.Application:
 
 def register_routes(app) -> None:
     """ Routes table. """
-    app.router.add_get('/calls/', CallsView, allow_head=False)
-    app.router.add_route('*', '/recording/', RecordingsView)
-    app.router.add_get('/operators/', OperatorsView, allow_head=False)
-    app.router.add_get('/ping/', PingCheckView)
-    app.router.add_get('/health/', HealthCheckView)
+    app.router.add_get('/calls', CallsView, allow_head=False)
+    app.router.add_route('*', '/recording', RecordingsView)
+    app.router.add_get('/operators', OperatorsView, allow_head=False)
+    app.router.add_get('/ping', PingCheckView)
+    app.router.add_get('/health', HealthCheckView)
 
 
 async def startup_handler(app) -> None:

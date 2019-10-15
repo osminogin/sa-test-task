@@ -27,19 +27,19 @@ async def test_build_app(aiohttp_client) -> None:
 async def test_unauthorized_access(aiohttp_client) -> None:
     """ Unauthorized access to protected methods. """
     client = await aiohttp_client(build_app)
-    response = await client.get('/calls/')
+    response = await client.get('/calls')
     assert response.status == web.HTTPUnauthorized.status_code
 
 
 async def test_not_found_method(aiohttp_client, auth) -> None:
     """ Not found method. """
     client = await aiohttp_client(build_app)
-    response = await client.get('/abcde123/', headers=auth)
+    response = await client.get('/abcde123', headers=auth)
     assert response.status == web.HTTPNotFound.status_code
 
 
 @pytest.mark.skip(reason="Нужно мокать remote_ip запроса, что бы получить Forbidden")
 async def test_forbidden(aiohttp_client, auth) -> None:
     client = await aiohttp_client(build_app)
-    response = await client.get('/ping/', headers=auth)
+    response = await client.get('/ping', headers=auth)
     assert response.status == web.HTTPForbidden.status_code
