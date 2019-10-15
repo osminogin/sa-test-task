@@ -1,5 +1,7 @@
 # Test task for SpeechAnalytics
 
+[![](https://travis-ci.org/osminogin/sa-test-task.svg?branch=master)](https://travis-ci.org/osminogin/sa-test-task)
+
 Test task.
 
 Initially generated from [cookiecutter aiohttp uvloop](https://github.com/osminogin/cookiecutter-aiohttp-uvloop) project template.

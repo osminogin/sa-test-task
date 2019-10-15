@@ -20,9 +20,9 @@ async def test_firewall_middleware(aiohttp_client) -> None:
     assert response.status == web.HTTPForbidden.status_code
 
 
-@pytest.mark.skip(reason='TODO')
-async def test_remove_middleware(aiohttp_client) -> None:
-    """ Must redirect to URL without trailing slash. """
+@pytest.mark.parametrize('test_url', ['/ping/', '/health/', '/ping///'])
+async def test_remove_middleware(aiohttp_client, test_url) -> None:
+    """ Must redirect to URL without trailing slashes. """
     client = await aiohttp_client(build_app)
-    response = await client.get('/ping/')
-    assert response
+    response = await client.get(test_url)
+    assert response.url.path == test_url.rstrip('/')
