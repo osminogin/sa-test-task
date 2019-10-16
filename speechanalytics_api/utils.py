@@ -9,7 +9,7 @@ from aiohttp import ClientSession
 from aiohttp_jwt import JWTMiddleware
 
 from .middlewares.version import version_middleware
-# from .middlewares.firewall import firewall_middleware
+from .middlewares.firewall import firewall_middleware
 from .middlewares.remove_slash import remove_slash_middleware
 from .settings import SECRET_KEY, YADISK_CALLDATA, WHITELIST_URLS
 
@@ -18,7 +18,7 @@ def get_middlewares() -> tuple:
     """ List of active middlewares. """
     middlewares = (
         version_middleware,
-        # firewall_middleware,
+        firewall_middleware,
         remove_slash_middleware,
         JWTMiddleware(SECRET_KEY, whitelist=WHITELIST_URLS),
     )
