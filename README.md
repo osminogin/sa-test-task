@@ -45,12 +45,17 @@ make dev
 This environment variables available:
 
 SECRET_KEY - секретный ключ авторизации (по дефолту равен токену я.диска).
+
 YADISK_TOKEN - единственный __обязательный параметр__.
-YADISK_CALLDATA = путь до метаданных звонков на файловой системе я.диска,
+
+YADISK_CALLDATA - путь до метаданных звонков на файловой системе я.диска,
     по дефолту равен '/speechanalytics-connect/meta/calls-info.csv')
-WHITELIST_IPS = список разрешенных для доступа IP (используется в firewall middleware).
-WHITELIST_URLS = список URL без авторизации (изначально /ping, /health).
-FIREWALL_ENABLED = включение ограничения доступа по WHITELIST_IPS и WHITELIST_URLS
+
+WHITELIST_IPS - список разрешенных для доступа IP (используется в firewall middleware).
+
+WHITELIST_URLS - список URL без авторизации (изначально /ping, /health).
+
+FIREWALL_ENABLED - включение ограничения доступа по WHITELIST_IPS и WHITELIST_URLS
     (остальные запросы получают 403).
 
 ## License
