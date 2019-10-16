@@ -6,7 +6,7 @@ Test task.
 
 Initially generated from [cookiecutter aiohttp uvloop](https://github.com/osminogin/cookiecutter-aiohttp-uvloop) project template.
 
-Publicly available: [](https://sa-test-task.herokuapp.com/)
+Publicly available: [sa-test-task.herokuapp.com](https://sa-test-task.herokuapp.com/)
 
 ## Features
 
@@ -40,9 +40,18 @@ Or alternatively run devserver:
 make dev
 ```
 
-## Todo
+## Settings
 
-* ...
+This environment variables available:
+
+SECRET_KEY - секретный ключ авторизации (по дефолту равен токену я.диска).
+YADISK_TOKEN - единственный __обязательный параметр__.
+YADISK_CALLDATA = путь до метаданных звонков на файловой системе я.диска,
+    по дефолту равен '/speechanalytics-connect/meta/calls-info.csv')
+WHITELIST_IPS = список разрешенных для доступа IP (используется в firewall middleware).
+WHITELIST_URLS = список URL без авторизации (изначально /ping, /health).
+FIREWALL_ENABLED = включение ограничения доступа по WHITELIST_IPS и WHITELIST_URLS
+    (остальные запросы получают 403).
 
 ## License
 
