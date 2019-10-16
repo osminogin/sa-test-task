@@ -1,0 +1,3 @@
+﻿call_id;filename;date;status;type;phone_number_operator;name_operator;phone_number_client;duration_answer
+9fa1fcda-c185-4ab0-bf7f-9d35ba55e3ab;dialog1.wav;2019-07-22 00:01:20;ACCEPTED;INCOMING;101;Иванов Иван;79101231230;13
+dcc60761-da46-4fa1-8a5d-45e05373e145;dialog2.wav;2019-07-31 14:01:20;REJECTED;OUTGOING;102;Петрова Мария;78001235550;1
