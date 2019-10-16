@@ -15,13 +15,13 @@ LABEL maintainer="osintsev@gmail.com" \
     org.label-schema.docker.cmd="docker run --rm --publish $PORT:8081 --name speechanalytics speechanalytics_api" \
     org.label-schema.name="Test task for SpeechAnalytics" \
     org.label-schema.license="MIT" \
-    org.label-schema.usage="https://github.com/osminogin/cookiecutter-aiohttp-uvloop#usage" \
+    org.label-schema.usage="https://github.com/osminogin/sa-test-task#getting-started" \
     org.label-schema.vcs-ref="$VCS_REF" \
     org.label-schema.schema-version="1.0" \
     org.label-schema.version="$VERSION"
 
 
-HEALTHCHECK --start-period=5s --retries=2 CMD "/usr/bin/curl -f http://127.0.0.1/ping/"
+HEALTHCHECK --start-period=5s --retries=2 CMD "/usr/bin/curl -f http://127.0.0.1/ping"
 
 COPY . /app
 WORKDIR /app

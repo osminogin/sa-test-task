@@ -5,7 +5,7 @@ VERSION ?= $(strip $(shell cat VERSION))
 COMMIT = $(strip $(shell git rev-parse --short HEAD))
 BUILD_DATE = $(strip $(shell date -u +"%Y-%m-%dT%H:%M:%SZ"))
 PUBLIC_URL = https://sa-test-task.herokuapp.com
-PORT ?= 8000
+PORT ?= 8081
 WORKER_PROCESSES ?= 4
 TAG ?= latest
 IMAGE ?= $(APP):$(TAG)
@@ -43,8 +43,5 @@ build:
 
 token:
 	@echo "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.19X7kKD-m0ImEdCIeDzitU10IQLQIhTkGA55FOaLUhs"
-
-deps:
-	@docker-compose up postgres redis	# pgadmin4
 
 .PHONY: default daemon tests build analysis dev token
