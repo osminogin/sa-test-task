@@ -13,6 +13,7 @@ WHITELIST_IPS = os.getenv('WHITELIST_IPS', '').split(',') or (
     '95.213.131.210',
 )
 WHITELIST_URLS = (r'/ping', r'/health',)
+FIREWALL_ENABLED = os.getenv('FIREWALL_ENABLED', False)
 
 LOGGING = {
     'version': 1,
