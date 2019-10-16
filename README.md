@@ -28,6 +28,8 @@ Firstly set required environment variable:
 export YADISK_TOKEN=...
 ```
 
+Upload `speechanalytics-connect` directory from `fixtures` to yours Ya.Disk root.
+
 Run production ready gunicorn server with uvloop:
 
 ```bash
@@ -44,19 +46,17 @@ make dev
 
 This environment variables available:
 
-SECRET_KEY - секретный ключ авторизации (по дефолту равен токену я.диска).
+``SECRET_KEY`` - секретный ключ авторизации (по дефолту равен токену я.диска).
 
-YADISK_TOKEN - единственный __обязательный параметр__.
+``YADISK_TOKEN`` - единственный __обязательный параметр__, забирается [тут](https://oauth.yandex.ru/authorize?response_type=token&client_id=04744ff1174c4efca87fda4c1c8f92e2).
 
-YADISK_CALLDATA - путь до метаданных звонков на файловой системе я.диска,
-    по дефолту равен '/speechanalytics-connect/meta/calls-info.csv')
+``YADISK_CALLDATA`` - путь на я.диске, по дефолту '/speechanalytics-connect/meta/calls-info.csv'.
 
-WHITELIST_IPS - список разрешенных для доступа IP (используется в firewall middleware).
+``WHITELIST_URLS`` - список URL без авторизации (изначально /ping, /health).
 
-WHITELIST_URLS - список URL без авторизации (изначально /ping, /health).
+``WHITELIST_IPS`` - список разрешенных для доступа IP (используется в firewall middleware).
 
-FIREWALL_ENABLED - включение ограничения доступа по WHITELIST_IPS и WHITELIST_URLS
-    (остальные запросы получают 403).
+``FIREWALL_ENABLED`` - включение ограничения доступа по спискам (остальные получают 403).
 
 ## License
 
