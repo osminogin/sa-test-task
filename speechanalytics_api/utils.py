@@ -5,7 +5,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 import aiofiles
 import pandas as pd
-from aiohttp import ClientSession
+from aiohttp import ClientSession, web
 from aiohttp_jwt import JWTMiddleware
 
 from .middlewares.version import version_middleware
@@ -108,3 +108,8 @@ async def get_json_url(session, url, headers=None) -> (dict, list):
         # Check valid `Content-Type` for JSON response
         assert response.content_type == 'application/json'
         return await response.json()
+
+
+async def redirect_handler(request):
+    """ Redirect to some page. """
+    raise web.HTTPFound(location='/health')

@@ -5,7 +5,7 @@ import fastjsonschema
 from aiohttp import web
 
 from .settings import YADISK_TOKEN, YADISK_CALLDATA
-from .utils import get_middlewares, get_version
+from .utils import get_middlewares, get_version, redirect_handler
 from .calls.views import CallsView
 from .schemas import SpeechAnalyticsSchemas
 from .recordings.views import RecordingsView
@@ -24,6 +24,7 @@ def build_app(argv=None) -> web.Application:
 
 def register_routes(app) -> None:
     """ Routes table. """
+    app.router.add_get('/', redirect_handler)
     app.router.add_get('/calls', CallsView, allow_head=False)
     app.router.add_route('*', '/recording', RecordingsView)
     app.router.add_get('/operators', OperatorsView, allow_head=False)
